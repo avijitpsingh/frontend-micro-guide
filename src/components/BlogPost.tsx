@@ -1,6 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { MonolithicDiagram } from "@/components/diagrams/MonolithicDiagram";
+import { MicroFrontendDiagram } from "@/components/diagrams/MicroFrontendDiagram";
+import { ModuleFederationDiagram } from "@/components/diagrams/ModuleFederationDiagram";
 
 const BlogPost = () => {
   return (
@@ -148,42 +151,7 @@ const BlogPost = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Monolithic Frontend Architecture</h3>
                 <Card className="p-6">
-                  <div className="bg-code-bg text-code-text p-6 rounded-lg font-mono text-sm">
-                    <pre>{`
-┌─────────────────────────────────────────────────────────────┐
-│                        USER TRAFFIC                         │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-              ┌───────▼────────┐
-              │  Load Balancer │
-              └───────┬────────┘
-                      │
-              ┌───────▼────────┐
-              │      CDN       │
-              └───────┬────────┘
-                      │
-    ┌─────────────────▼─────────────────┐
-    │      MONOLITHIC FRONTEND         │
-    │  ┌─────────────────────────────┐  │
-    │  │   Shared Components         │  │
-    │  └─────────────────────────────┘  │
-    │  ┌─────────┬─────────┬─────────┐  │
-    │  │Feature 1│Feature 2│Feature 3│  │
-    │  └─────────┴─────────┴─────────┘  │
-    └─────────────────┬─────────────────┘
-                      │
-              ┌───────▼────────┐
-              │  API Gateway   │
-              └───────┬────────┘
-                      │
-        ┌─────────────┼─────────────┐
-        │             │             │
-    ┌───▼───┐    ┌───▼───┐    ┌───▼───┐
-    │Service│    │Service│    │Service│
-    │   1   │    │   2   │    │   3   │
-    └───────┘    └───────┘    └───────┘
-                    `}</pre>
-                  </div>
+                  <MonolithicDiagram />
                   <p className="mt-4 text-sm text-muted-foreground">
                     Traditional monolithic architecture with tightly coupled frontend components and shared dependencies.
                   </p>
@@ -193,42 +161,7 @@ const BlogPost = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Micro Frontend Architecture</h3>
                 <Card className="p-6">
-                  <div className="bg-code-bg text-code-text p-6 rounded-lg font-mono text-sm">
-                    <pre>{`
-┌─────────────────────────────────────────────────────────────┐
-│                        USER TRAFFIC                         │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-              ┌───────▼────────┐
-              │  Load Balancer │
-              └───────┬────────┘
-                      │
-              ┌───────▼────────┐
-              │      CDN       │
-              └───────┬────────┘
-                      │
-    ┌─────────────────▼─────────────────┐
-    │    SHELL APPLICATION/CONTAINER    │
-    │  ┌─────────────────────────────┐  │
-    │  │  Shared Component Library   │  │
-    │  └─────────────────────────────┘  │
-    └──────────┬──────────┬─────────────┘
-               │          │
-    ┌──────────▼───┐ ┌───▼──────┐ ┌────▼────┐
-    │  Micro FE 1  │ │ Micro FE │ │Micro FE │
-    │   (React)    │ │  2 (Vue) │ │3(Angular)│
-    │              │ │          │ │         │
-    │ Team A       │ │ Team B   │ │Team C   │
-    │ Repository   │ │Repository│ │Repository│
-    │ CI/CD        │ │ CI/CD    │ │CI/CD    │
-    └──────┬───────┘ └────┬─────┘ └────┬────┘
-           │              │            │
-    ┌──────▼──────┐ ┌─────▼────┐ ┌─────▼────┐
-    │   Team A    │ │  Team B  │ │  Team C  │
-    │  Services   │ │ Services │ │ Services │
-    └─────────────┘ └──────────┘ └──────────┘
-                    `}</pre>
-                  </div>
+                  <MicroFrontendDiagram />
                   <p className="mt-4 text-sm text-muted-foreground">
                     Micro frontend architecture with independent teams, technologies, and deployment pipelines.
                   </p>
@@ -238,36 +171,7 @@ const BlogPost = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Module Federation Architecture</h3>
                 <Card className="p-6">
-                  <div className="bg-code-bg text-code-text p-6 rounded-lg font-mono text-sm">
-                    <pre>{`
-┌─────────────────────────────────────────────┐
-│              SHELL APPLICATION               │
-│                                             │
-│      ┌─────────────────────────────┐        │
-│      │     MODULE FEDERATION       │        │
-│      │         RUNTIME             │        │
-│      └─────────┬───────────────────┘        │
-└────────────────┼─────────────────────────────┘
-                 │
-    ┌────────────┼────────────┬───────────────┐
-    │            │            │               │
-┌───▼───┐   ┌───▼───┐   ┌───▼───┐      ┌───▼───┐
-│Remote │   │Remote │   │Remote │      │Remote │
-│   1   │   │   2   │   │   3   │      │   4   │
-│Header/│   │Product│   │ User  │      │Checkout│
-│  Nav  │   │Catalog│   │Dashbrd│      │       │
-└───┬───┘   └───┬───┘   └───┬───┘      └───┬───┘
-    │           │           │              │
-┌───▼───┐   ┌───▼───┐   ┌───▼───┐      ┌───▼───┐
-│Webpack│   │Webpack│   │Webpack│      │Webpack│
-│  Fed  │   │  Fed  │   │  Fed  │      │  Fed  │
-│ Host 1│   │ Host 2│   │ Host 3│      │ Host 4│
-└───────┘   └───────┘   └───────┘      └───────┘
-
-Exposes:     Exposes:    Exposes:       Exposes:
-Navigation   ProductList Dashboard      Payment
-                    `}</pre>
-                  </div>
+                  <ModuleFederationDiagram />
                   <p className="mt-4 text-sm text-muted-foreground">
                     Module Federation enables runtime sharing and loading of micro frontends with independent webpack builds.
                   </p>
