@@ -5,19 +5,46 @@ import { MonolithicDiagram } from "@/components/diagrams/MonolithicDiagram";
 import { MicroFrontendDiagram } from "@/components/diagrams/MicroFrontendDiagram";
 import { ModuleFederationDiagram } from "@/components/diagrams/ModuleFederationDiagram";
 import { useEffect } from "react";
+import { BlogPost as BlogPostType } from "@/data/blogs";
 
-const BlogPost = () => {
+interface BlogPostProps {
+  post?: BlogPostType;
+}
+
+const BlogPost = ({ post }: BlogPostProps) => {
+  // Default to the first blog post if none provided (for backward compatibility)
+  const defaultPost: BlogPostType = {
+    id: 'micro-frontend-architecture-guide',
+    title: 'Micro Frontend Architecture',
+    subtitle: 'A comprehensive guide to modern frontend architecture patterns and the evolution from monolithic to micro frontend systems',
+    description: 'Comprehensive guide to micro frontend architecture, covering implementation strategies, Module Federation, best practices, and migration patterns.',
+    author: {
+      name: 'Avijit Pratap Singh',
+      initials: 'APS',
+      title: 'Architect | Engineering Leader',
+      linkedin: 'https://www.linkedin.com/in/avijit-pratap-singh/'
+    },
+    publishDate: '2024-01-15',
+    readTime: '15 min read',
+    difficulty: 'Advanced',
+    tags: ['micro frontend', 'module federation', 'webpack', 'frontend architecture', 'javascript', 'react'],
+    content: 'micro-frontend-guide',
+    featured: true
+  };
+
+  const currentPost = post || defaultPost;
+
   useEffect(() => {
     // Add structured data for SEO
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Micro Frontend Architecture: A Complete Implementation Guide",
-      "description": "Comprehensive guide to micro frontend architecture, covering implementation strategies, Module Federation, best practices, and migration patterns.",
+      "headline": currentPost.title,
+      "description": currentPost.description,
       "author": {
         "@type": "Person",
-        "name": "Avijit Pratap Singh",
-        "url": "https://www.linkedin.com/in/avijit-pratap-singh/"
+        "name": currentPost.author.name,
+        "url": currentPost.author.linkedin
       },
       "publisher": {
         "@type": "Organization",
@@ -27,15 +54,15 @@ const BlogPost = () => {
           "url": "https://yoursite.com/logo.png"
         }
       },
-      "datePublished": "2024-01-15T10:00:00Z",
-      "dateModified": "2024-01-15T10:00:00Z",
+      "datePublished": `${currentPost.publishDate}T10:00:00Z`,
+      "dateModified": `${currentPost.publishDate}T10:00:00Z`,
       "image": "https://yoursite.com/micro-frontend-guide.jpg",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://yoursite.com/"
+        "@id": `https://yoursite.com/blog/${currentPost.id}`
       },
       "articleSection": "Technology",
-      "keywords": ["micro frontend", "module federation", "webpack", "frontend architecture", "javascript", "react"],
+      "keywords": currentPost.tags,
       "wordCount": 3500
     };
 
@@ -50,7 +77,7 @@ const BlogPost = () => {
         document.head.removeChild(existingScript);
       }
     };
-  }, []);
+  }, [currentPost]);
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -62,17 +89,17 @@ const BlogPost = () => {
               System Architecture
             </Badge>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Micro Frontend Architecture
+              {currentPost.title}
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 leading-relaxed">
-              A comprehensive guide to modern frontend architecture patterns and the evolution from monolithic to micro frontend systems
+              {currentPost.subtitle}
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-primary-foreground/80">
-              <span>Published: {new Date().toLocaleDateString()}</span>
+              <span>Published: {new Date(currentPost.publishDate).toLocaleDateString()}</span>
               <span>•</span>
-              <span>15 min read</span>
+              <span>{currentPost.readTime}</span>
               <span>•</span>
-              <span>Advanced</span>
+              <span>{currentPost.difficulty}</span>
             </div>
           </div>
         </div>
@@ -85,13 +112,13 @@ const BlogPost = () => {
           <div className="bg-muted/50 rounded-lg p-6 mb-8 border-l-4 border-primary">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold text-lg">
-                APS
+                {currentPost.author.initials}
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">Avijit Pratap Singh</h3>
-                <p className="text-muted-foreground text-sm mb-2">Architect | Engineering Leader</p>
+                <h3 className="text-lg font-semibold text-foreground mb-1">{currentPost.author.name}</h3>
+                <p className="text-muted-foreground text-sm mb-2">{currentPost.author.title}</p>
                 <a 
-                  href="https://www.linkedin.com/in/avijit-pratap-singh/" 
+                  href={currentPost.author.linkedin} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1"
