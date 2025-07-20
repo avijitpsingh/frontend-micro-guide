@@ -4,8 +4,53 @@ import { Separator } from "@/components/ui/separator";
 import { MonolithicDiagram } from "@/components/diagrams/MonolithicDiagram";
 import { MicroFrontendDiagram } from "@/components/diagrams/MicroFrontendDiagram";
 import { ModuleFederationDiagram } from "@/components/diagrams/ModuleFederationDiagram";
+import { useEffect } from "react";
 
 const BlogPost = () => {
+  useEffect(() => {
+    // Add structured data for SEO
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Micro Frontend Architecture: A Complete Implementation Guide",
+      "description": "Comprehensive guide to micro frontend architecture, covering implementation strategies, Module Federation, best practices, and migration patterns.",
+      "author": {
+        "@type": "Person",
+        "name": "Avijit Pratap Singh",
+        "url": "https://www.linkedin.com/in/avijit-pratap-singh/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Frontend Architecture Blog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yoursite.com/logo.png"
+        }
+      },
+      "datePublished": "2024-01-15T10:00:00Z",
+      "dateModified": "2024-01-15T10:00:00Z",
+      "image": "https://yoursite.com/micro-frontend-guide.jpg",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yoursite.com/"
+      },
+      "articleSection": "Technology",
+      "keywords": ["micro frontend", "module federation", "webpack", "frontend architecture", "javascript", "react"],
+      "wordCount": 3500
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
+    return () => {
+      const existingScript = document.querySelector('script[type="application/ld+json"]');
+      if (existingScript) {
+        document.head.removeChild(existingScript);
+      }
+    };
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
