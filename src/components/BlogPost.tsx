@@ -36,6 +36,27 @@ const BlogPost = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
+          {/* Author Section */}
+          <div className="bg-muted/50 rounded-lg p-6 mb-8 border-l-4 border-primary">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold text-lg">
+                [Your Initial]
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-1">[Your Name]</h3>
+                <p className="text-muted-foreground text-sm mb-2">Frontend Architect & Engineering Lead</p>
+                <a 
+                  href="[Your LinkedIn URL]" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1"
+                >
+                  Connect on LinkedIn →
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Table of Contents */}
           <Card className="p-6 mb-12 border-border-subtle">
             <h2 className="text-xl font-semibold mb-4">Table of Contents</h2>
