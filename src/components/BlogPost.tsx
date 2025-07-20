@@ -40,13 +40,13 @@ const BlogPost = () => {
           <div className="bg-muted/50 rounded-lg p-6 mb-8 border-l-4 border-primary">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold text-lg">
-                [Your Initial]
+                APS
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">[Your Name]</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-1">Avijit Pratap Singh</h3>
                 <p className="text-muted-foreground text-sm mb-2">Frontend Architect & Engineering Lead</p>
                 <a 
-                  href="[Your LinkedIn URL]" 
+                  href="https://www.linkedin.com/in/avijit-pratap-singh/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1"
