@@ -44,7 +44,7 @@ const BlogPost = () => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-1">Avijit Pratap Singh</h3>
-                <p className="text-muted-foreground text-sm mb-2">Frontend Architect & Engineering Lead</p>
+                <p className="text-muted-foreground text-sm mb-2">Architect | Engineering Leader</p>
                 <a 
                   href="https://www.linkedin.com/in/avijit-pratap-singh/" 
                   target="_blank" 
